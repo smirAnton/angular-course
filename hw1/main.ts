@@ -6,13 +6,12 @@ class Car {
     private year: number, 
     private power: number,
     private color: Color,
-    private speedLimit: number,
     private engineVolume: number
   ) {} 
 
-  move(speed: number, direction: 'left' | 'right' | 'top' | 'botom', brand: string): void {
-    if (speed > this.speedLimit) {
-      console.log(`Car ${brand} of ${this.color} color can't move with ${speed} speed since to limit in ${this.speedLimit}`);
+  move(speed: number, direction: 'left' | 'right' | 'top' | 'botom', brand: string, speedLimit: number): void {
+    if (speed > speedLimit) {
+      console.log(`Car ${brand} of ${this.color} color can't move with ${speed} speed since to limit in ${speedLimit}`);
     } else {
       if (!this.isWorking) {
         this.startEngine();
@@ -29,22 +28,12 @@ class Car {
   stopEngine(): void {
     this.isWorking = false;
   }
-
-  getSpeedLimit(): number {
-    return this.speedLimit;
-  }
-
-  getEngineVolume(): number {
-    return this.engineVolume;
-  }
-
-  getPower(): number {
-    return this.power;
-  }
 }
 
 class BMW extends Car {
   private brand = 'BMW';
+
+  private speedLimit: number;
 
   constructor(
     year: number, 
@@ -53,16 +42,19 @@ class BMW extends Car {
     speedLimit: number,
     engineVolume: number
   ) {
-    super(year, power, color, speedLimit, engineVolume);
+    super(year, power, color, engineVolume);
+    this.speedLimit = speedLimit;
   }
 
   move(speed: number, direction: 'left' | 'right' | 'top' | 'botom'): void {
-    super.move(speed, direction, this.brand);
+    super.move(speed, direction, this.brand, this.speedLimit);
   }
 }
 
 class Audi extends Car {
   private brand = 'Audi';
+
+  private speedLimit: number;
   
   constructor(
     year: number, 
@@ -71,11 +63,12 @@ class Audi extends Car {
     speedLimit: number,
     engineVolume: number
   ) {
-    super(year, power, color, speedLimit, engineVolume);
+    super(year, power, color, engineVolume);
+    this.speedLimit = speedLimit;
   }
 
   move(speed: number, direction: 'left' | 'right' | 'top' | 'botom'): void {
-    super.move(speed, direction, this.brand);
+    super.move(speed, direction, this.brand, this.speedLimit);
   }
 }
 

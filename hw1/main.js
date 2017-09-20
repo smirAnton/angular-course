@@ -9,17 +9,16 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 var Car = /** @class */ (function () {
-    function Car(year, power, color, speedLimit, engineVolume) {
+    function Car(year, power, color, engineVolume) {
         this.year = year;
         this.power = power;
         this.color = color;
-        this.speedLimit = speedLimit;
         this.engineVolume = engineVolume;
         this.isWorking = false;
     }
-    Car.prototype.move = function (speed, direction, brand) {
-        if (speed > this.speedLimit) {
-            console.log("Car " + brand + " of " + this.color + " color can't move with " + speed + " speed since to limit in " + this.speedLimit);
+    Car.prototype.move = function (speed, direction, brand, speedLimit) {
+        if (speed > speedLimit) {
+            console.log("Car " + brand + " of " + this.color + " color can't move with " + speed + " speed since to limit in " + speedLimit);
         }
         else {
             if (!this.isWorking) {
@@ -35,38 +34,31 @@ var Car = /** @class */ (function () {
     Car.prototype.stopEngine = function () {
         this.isWorking = false;
     };
-    Car.prototype.getSpeedLimit = function () {
-        return this.speedLimit;
-    };
-    Car.prototype.getEngineVolume = function () {
-        return this.engineVolume;
-    };
-    Car.prototype.getPower = function () {
-        return this.power;
-    };
     return Car;
 }());
 var BMW = /** @class */ (function (_super) {
     __extends(BMW, _super);
     function BMW(year, power, color, speedLimit, engineVolume) {
-        var _this = _super.call(this, year, power, color, speedLimit, engineVolume) || this;
+        var _this = _super.call(this, year, power, color, engineVolume) || this;
         _this.brand = 'BMW';
+        _this.speedLimit = speedLimit;
         return _this;
     }
     BMW.prototype.move = function (speed, direction) {
-        _super.prototype.move.call(this, speed, direction, this.brand);
+        _super.prototype.move.call(this, speed, direction, this.brand, this.speedLimit);
     };
     return BMW;
 }(Car));
 var Audi = /** @class */ (function (_super) {
     __extends(Audi, _super);
     function Audi(year, power, color, speedLimit, engineVolume) {
-        var _this = _super.call(this, year, power, color, speedLimit, engineVolume) || this;
+        var _this = _super.call(this, year, power, color, engineVolume) || this;
         _this.brand = 'Audi';
+        _this.speedLimit = speedLimit;
         return _this;
     }
     Audi.prototype.move = function (speed, direction) {
-        _super.prototype.move.call(this, speed, direction, this.brand);
+        _super.prototype.move.call(this, speed, direction, this.brand, this.speedLimit);
     };
     return Audi;
 }(Car));
